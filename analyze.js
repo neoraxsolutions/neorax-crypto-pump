@@ -7,12 +7,9 @@ const RSI_THRESHOLD = 30;      // RSI below 30 = potential reversal
 
 async function analyzeCoin(coin) {
   try {
-    // Add delay to avoid 429 error
-    await new Promise(resolve => setTimeout(resolve, 1000));
     const priceRes = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`);
     const price = priceRes.data[coin].usd;
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
     const marketRes = await axios.get(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=1`);
     const volumes = marketRes.data.total_volumes.map(x => x[1]);
 
@@ -35,5 +32,10 @@ async function analyzeCoin(coin) {
     console.error('❌ Error analyzing coin:', error.message);
   }
 }
+
+// Run every 5 minutes
+setInterval(() => {
+  analyzeCoin('bitcoin'); // change 'bitcoin' to 'ethereum', 'dogecoin', etc.
+}, 5 * 60 * 1000);
 
 module.exports = analyzeCoin;
