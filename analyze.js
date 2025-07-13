@@ -33,4 +33,4 @@ async function analyzeCoin(coin) {
   }
 }
 
-analyzeCoin('bitcoin'); // You can change to any coin id from coingecko (e.g., 'ethereum', 'dogecoin')
+module.exports = analyzeCoin; // You can change to any coin id from coingecko (e.g., 'ethereum', 'dogecoin')
