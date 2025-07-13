@@ -12,6 +12,3 @@ function sendPumpAlert(coin, price) {
   });
 }
 
-sendPumpAlert('BTC', 58620)
-  .then(() => console.log('✅ Alert sent!'))
-  .catch(console.error);
